@@ -11,8 +11,9 @@ import { AuthorDialogComponent } from './dialogs/author-dialog/author-dialog.com
 import { MatDialogModule } from "@angular/material/dialog";
 import { ListComponent } from './components/list/list.component';
 import { HttpClientModule}  from "@angular/common/http";
-import {MatListModule} from "@angular/material/list";
+import { MatListModule } from "@angular/material/list";
 import { ItemDetailsComponent } from './components/item-details/item-details.component';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ItemDetailsComponent } from './components/item-details/item-details.com
     MatIconModule,
     MatDialogModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [
     AuthorDialogComponent

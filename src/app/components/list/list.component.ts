@@ -1,5 +1,7 @@
+import { ChangeDetectorRef } from '@angular/core';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {RecipieService} from "../../services/recipie.service";
+import {SharedService} from "../../services/shared.service";
 
 @Component({
   selector: 'app-list',
@@ -8,15 +10,18 @@ import {RecipieService} from "../../services/recipie.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent implements OnInit {
-  list: any= [];
-  selectedItemId!: number;
+  list: any = [];
+  selectedItemId!: string;
 
-  constructor(private recipieService: RecipieService) { }
+  constructor(private recipieService: RecipieService, private sharedService: SharedService,
+              private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.recipieService.getData().subscribe(
       (res) => {
         this.list = res;
+        console.log(this.list)
+        this.changeDetectorRef.markForCheck();  // async pipe zamiast tego
       },
       error => {
         console.log(error)
@@ -24,8 +29,9 @@ export class ListComponent implements OnInit {
     )
   }
 
-  selectItem(id: number): void {
+  selectItem(id: string): void {
     this.selectedItemId = id;
+    this.sharedService.selectItem(this.selectedItemId);
   }
 
 }
