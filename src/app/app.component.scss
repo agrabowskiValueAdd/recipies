@@ -1,0 +1,12 @@
+.content {
+  display: flex;
+  justify-content: center;
+
+  .list {
+    flex: 2;
+  }
+
+  .details {
+    flex: 4;
+  }
+}

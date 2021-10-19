@@ -1,0 +1,10 @@
+<mat-list>
+  <mat-list-item *ngFor="let item of list"
+                 (click)="selectItem(item._id)"
+                 [ngClass]="{'selected-row': selectedItemId === item._id}" >
+    {{item.name}}
+  </mat-list-item>
+  <mat-list-item>tretewr</mat-list-item>
+  <mat-list-item>tret5345ewr</mat-list-item>
+  <mat-list-item>tret34532445ewr</mat-list-item>
+</mat-list>
