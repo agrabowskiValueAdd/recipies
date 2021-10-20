@@ -1,5 +1,13 @@
+<mat-form-field class="example-form-field" appearance="fill">
+  <mat-label>Search</mat-label>
+  <input matInput type="text" [(ngModel)]="searchValue">
+  <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
 <mat-list>
-  <mat-list-item *ngFor="let item of list"
+  <mat-list-item *ngFor="let item of list | searchFilter: searchValue"
                  [ngClass]="{'selected-row': selectedItemId === item.id}"
                  class="list-item">
       <span class="recipe-name" (click)="selectItem(item.id)">{{item.name}}</span>

@@ -16,6 +16,9 @@ import { ItemDetailsComponent } from './components/item-details/item-details.com
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { DeleteConfirmationDialogComponent } from './dialogs/confirmation-dialog/delete-confirmation-dialog.component';
 import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import {MatButtonModule} from "@angular/material/button";
     AuthorDialogComponent,
     ListComponent,
     ItemDetailsComponent,
-    DeleteConfirmationDialogComponent
+    DeleteConfirmationDialogComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,10 @@ import {MatButtonModule} from "@angular/material/button";
     HttpClientModule,
     MatListModule,
     MatSnackBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthorDialogComponent,

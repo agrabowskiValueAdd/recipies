@@ -16,6 +16,7 @@ import {MatDialog} from "@angular/material/dialog";
 export class ListComponent implements OnInit {
   list: Recipe[] = [];
   selectedItemId!: string;
+  searchValue!: string;
 
   constructor(private recipeService: RecipeService, private sharedService: SharedService,
               private changeDetectorRef: ChangeDetectorRef, private snackBar: MatSnackBar,
