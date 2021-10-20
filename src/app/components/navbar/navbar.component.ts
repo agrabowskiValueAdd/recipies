@@ -10,7 +10,7 @@ import { AuthorDialogComponent } from "../../dialogs/author-dialog/author-dialog
 })
 export class NavbarComponent implements OnInit {
 
-  appName: string = 'Unicorns';
+  appName: string = 'Recipes';
 
   constructor(public dialog: MatDialog) { }
 

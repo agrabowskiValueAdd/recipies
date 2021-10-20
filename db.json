@@ -1,0 +1,117 @@
+{
+  "recipes": [
+    {
+      "id": "1",
+      "name": "pasta broccoli",
+      "preparationTimeInMinutes": 20,
+      "description": "meatless Italian pasta with broccoli, olive and cheese",
+      "ingredients": [
+        {
+          "id": "1",
+          "name": "cheese",
+          "quantity": "100g"
+        },
+        {
+          "id": "2",
+          "name": "pasta",
+          "quantity": "250g"
+        },
+        {
+          "id": "3",
+          "name": "olive oil",
+          "quantity": "50g"
+        },
+        {
+          "id": "4",
+          "name": "broccoli",
+          "quantity": "250g"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "ragout bolognese",
+      "preparationTimeInMinutes": 360,
+      "description": "most famous Italian pasta from Bologna",
+      "ingredients": [
+        {
+          "id": "3",
+          "name": "olive oil",
+          "quantity": "30g"
+        },
+        {
+          "id": "5",
+          "name": "beef",
+          "quantity": "250g"
+        },
+        {
+          "id": "6",
+          "name": "pork",
+          "quantity": "200g"
+        },
+        {
+          "id": "7",
+          "name": "carrot",
+          "quantity": "50g"
+        },
+        {
+          "id": "8",
+          "name": "celery",
+          "quantity": "50g"
+        },
+        {
+          "id": "9",
+          "name": "tomatoes",
+          "quantity": "400g"
+        }
+      ]
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "1",
+      "name": "cheese",
+      "quantity": "100g"
+    },
+    {
+      "id": "2",
+      "name": "pasta",
+      "quantity": "250g"
+    },
+    {
+      "id": "3",
+      "name": "olive oil",
+      "quantity": "50g"
+    },
+    {
+      "id": "4",
+      "name": "broccoli",
+      "quantity": "250g"
+    },
+    {
+      "id": "5",
+      "name": "beef",
+      "quantity": "250g"
+    },
+    {
+      "id": "6",
+      "name": "pork",
+      "quantity": "200g"
+    },
+    {
+      "id": "7",
+      "name": "carrot",
+      "quantity": "50g"
+    },
+    {
+      "id": "8",
+      "name": "celery",
+      "quantity": "50g"
+    },
+    {
+      "id": "9",
+      "name": "tomatoes",
+      "quantity": "400g"
+    }
+  ]
+}

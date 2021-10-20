@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from "../../services/shared.service";
 import {Subscription} from "rxjs";
-import {RecipieService} from "../../services/recipie.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {RecipeService} from "../../services/recipe.service";
+import {Recipe} from "../../Recipe";
 
 @Component({
   selector: 'app-item-details',
@@ -11,20 +11,19 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDetailsComponent implements OnInit, OnDestroy {
-  item: any = {} //dodac interfejs tylko dopytac czy jaki to ma byc, bo crudcrud zwraca inne dane niz w poleceniu
+  item!: Recipe;
   sub!: Subscription;
 
-  constructor(private sharedService: SharedService, private recipieService: RecipieService,
-              private changeDetectorRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
+  constructor(private sharedService: SharedService, private recipeService: RecipeService,
+              private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.sub = this.sharedService.getSelectedItem().subscribe(
       (res) => {
-        console.log(res)
-        this.getItem(res)
+        if (res) {
+          this.getItem(res);
+        }
       })
-
-    this.openSnackBar();
   }
 
   ngOnDestroy(): void {
@@ -32,18 +31,10 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   getItem(id: string) {
-    this.recipieService.getItem(id).subscribe(
+    this.recipeService.getRecipeById(id).subscribe(
       (res) => {
         this.item = res;
-        console.log(res);
         this.changeDetectorRef.markForCheck();
-      })
-  }
-
-  openSnackBar() {
-    this.snackBar.open('Title', 'action',
-      {
-        duration: 3000
       })
   }
 

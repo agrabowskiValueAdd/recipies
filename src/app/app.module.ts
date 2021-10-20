@@ -14,6 +14,8 @@ import { HttpClientModule}  from "@angular/common/http";
 import { MatListModule } from "@angular/material/list";
 import { ItemDetailsComponent } from './components/item-details/item-details.component';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { DeleteConfirmationDialogComponent } from './dialogs/confirmation-dialog/delete-confirmation-dialog.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     NavbarComponent,
     AuthorDialogComponent,
     ListComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    DeleteConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,10 +34,12 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatDialogModule,
     HttpClientModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonModule
   ],
   providers: [
-    AuthorDialogComponent
+    AuthorDialogComponent,
+    DeleteConfirmationDialogComponent
   ],
   bootstrap: [AppComponent]
 })
