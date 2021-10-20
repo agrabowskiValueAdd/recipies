@@ -19,6 +19,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { ItemEditorComponent } from './components/item-details/item-editor/item-editor.component';
+import {TextFieldModule} from "@angular/cdk/text-field";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     ListComponent,
     ItemDetailsComponent,
     DeleteConfirmationDialogComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    ItemEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     MatButtonModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TextFieldModule
   ],
   providers: [
     AuthorDialogComponent,

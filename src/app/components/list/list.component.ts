@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from '@angular/core';
+import {ChangeDetectorRef} from '@angular/core';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {RecipeService} from "../../services/recipe.service";
 import {SharedService} from "../../services/shared.service";
@@ -37,6 +37,7 @@ export class ListComponent implements OnInit {
 
   selectItem(id: string): void {
     this.selectedItemId = id;
+    this.sharedService.toggleEditor(false);
     this.sharedService.selectItem(this.selectedItemId);
   }
 
@@ -65,6 +66,10 @@ export class ListComponent implements OnInit {
         this.deleteRecipe(result.id);
       }
     });
+  }
+
+  addRecipeButton() {
+    this.sharedService.toggleEditor(true);
   }
 
 }

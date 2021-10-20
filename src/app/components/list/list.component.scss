@@ -9,8 +9,21 @@
 
 .action-icon {
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .recipe-name {
   cursor: pointer;
+}
+.list-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

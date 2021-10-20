@@ -1,5 +1,7 @@
-<div *ngIf="item">
-  <p>name: {{item.name}}</p>
-  <p>description: {{item.description}}</p>
+<div *ngIf="item && !showEditor">
+  <p class="recipe-name">{{item.name}}</p>
+  <p class="recipe-description">{{item.description}}</p>
   <p>preparation time (minutes): {{item.preparationTimeInMinutes}}</p>
 </div>
+
+<app-item-editor *ngIf="showEditor"></app-item-editor>

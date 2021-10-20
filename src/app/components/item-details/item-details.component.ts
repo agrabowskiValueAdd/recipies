@@ -13,6 +13,8 @@ import {Recipe} from "../../Recipe";
 export class ItemDetailsComponent implements OnInit, OnDestroy {
   item!: Recipe;
   sub!: Subscription;
+  editorSub!: Subscription;
+  showEditor: boolean = false;
 
   constructor(private sharedService: SharedService, private recipeService: RecipeService,
               private changeDetectorRef: ChangeDetectorRef) { }
@@ -24,6 +26,13 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
           this.getItem(res);
         }
       })
+
+    this.editorSub = this.sharedService.getEditorVisibility().subscribe(
+      (res) => {
+        this.showEditor = res;
+        this.changeDetectorRef.markForCheck();
+      }
+    )
   }
 
   ngOnDestroy(): void {
@@ -36,6 +45,26 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         this.item = res;
         this.changeDetectorRef.markForCheck();
       })
+  }
+
+  createRecipe() {
+    const newRecipe: Recipe = {
+      //id: "5",
+      name: "test123",
+      description: "test desc",
+      preparationTimeInMinutes: 30,
+      ingredients: []
+    }
+
+    this.recipeService.createRecipe(newRecipe).subscribe(
+      (res) => {
+        console.log(res)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+
   }
 
 }

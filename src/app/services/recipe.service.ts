@@ -25,4 +25,9 @@ export class RecipeService {
     const url = `${this.apiUrl}/recipes/${id}`;
     return this.http.delete<Recipe>(url);
   }
+
+  createRecipe(recipe: Recipe): Observable<Recipe> {
+    const url = `${this.apiUrl}/recipes`;
+    return this.http.post<Recipe>(url, recipe);
+  }
 }
