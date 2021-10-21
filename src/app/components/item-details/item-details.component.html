@@ -1,7 +1,13 @@
 <div *ngIf="item && !showEditor">
   <p class="recipe-name">{{item.name}}</p>
   <p class="recipe-description">{{item.description}}</p>
-  <p>preparation time (minutes): {{item.preparationTimeInMinutes}}</p>
+  <p>preparation time: <span style="font-weight: bold">{{item.preparationTimeInMinutes | prepTimePipe }}</span></p>
+  <p>Ingredients:</p>
+  <mat-list>
+    <mat-list-item *ngFor="let ingredient of item.ingredients">
+        <span>{{ingredient.name}} ({{ingredient.quantity}})</span>
+    </mat-list-item>
+  </mat-list>
 </div>
 
 <app-item-editor *ngIf="showEditor"></app-item-editor>

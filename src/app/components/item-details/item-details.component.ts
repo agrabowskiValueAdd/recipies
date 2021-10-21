@@ -47,24 +47,24 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
-  createRecipe() {
-    const newRecipe: Recipe = {
-      //id: "5",
-      name: "test123",
-      description: "test desc",
-      preparationTimeInMinutes: 30,
-      ingredients: []
-    }
-
-    this.recipeService.createRecipe(newRecipe).subscribe(
-      (res) => {
-        console.log(res)
-      },
-      error => {
-        console.log(error)
-      }
-    )
-
-  }
+  // createRecipe() {
+  //   const newRecipe: Recipe = {
+  //     //id: "5",
+  //     name: "test123",
+  //     description: "test desc",
+  //     preparationTimeInMinutes: 30,
+  //     ingredients: []
+  //   }
+  //
+  //   this.recipeService.createRecipe(newRecipe).subscribe(
+  //     (res) => {
+  //       console.log(res)
+  //     },
+  //     error => {
+  //       console.log(error)
+  //     }
+  //   )
+  //
+  // }
 
 }

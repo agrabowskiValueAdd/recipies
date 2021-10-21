@@ -1,0 +1,20 @@
+<form [formGroup]="newIngredientForm" autocomplete="off">
+  <div class="form-content">
+    <mat-form-field appearance="legacy" [style.width.%]="100">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Enter ingredient name" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy" [style.width.%]="100">
+      <mat-label>Quantity</mat-label>
+      <input matInput placeholder="Enter ingredient quantity" formControlName="quantity">
+      <mat-hint>e.g. 50g</mat-hint>
+    </mat-form-field>
+
+  </div>
+
+  <button mat-raised-button
+          [mat-dialog-close]="newIngredientForm.value"
+          [disabled]="!newIngredientForm.valid">Add
+  </button>
+</form>

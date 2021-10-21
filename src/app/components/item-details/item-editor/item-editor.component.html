@@ -1,14 +1,12 @@
 <form [formGroup]="newRecipeForm" autocomplete="off">
-<!--  <label for="name">Name:</label>-->
-<!--  <input id="name" type="text" formControlName="name">-->
 <div class="form-content">
-  <mat-form-field appearance="legacy" [style.width.%]="30">
+  <mat-form-field appearance="legacy" [style.width.%]="45">
     <mat-label>Name</mat-label>
     <input matInput placeholder="Enter recipe name" formControlName="name">
     <mat-hint>3-80 characters</mat-hint>
   </mat-form-field>
 
-  <mat-form-field appearance="legacy" [style.width.%]="30">
+  <mat-form-field appearance="legacy" [style.width.%]="45">
     <mat-label>Description</mat-label>
     <textarea matInput
               cdkTextareaAutosize
@@ -25,8 +23,16 @@
     <input matInput type="number" placeholder="Enter preparation time" formControlName="preparationTimeInMinutes">
     <mat-hint>In minutes</mat-hint>
   </mat-form-field>
-</div>
-<!--  INGREDIENTS-->
 
-  <button mat-raised-button color="primary" (click)="addRecipe()" [disabled]="!newRecipeForm.valid">Add recipe</button>
+  <p>Ingredients (add two at least)</p>
+  <div class="ingredient-list">
+    <p *ngFor="let i of ingredients">
+      <span>{{i.name}} ({{i.quantity}})</span>
+      <span class="close-icon" (click)="removeIngredient(i)"><mat-icon>close</mat-icon></span>
+    </p>
+  </div>
+
+  <button mat-raised-button (click)="openAddIngredientDialog()">Add ingredient</button>
+</div>
+  <button mat-raised-button color="primary" (click)="addRecipe()" [disabled]="!isFormValid()">Add recipe</button>
 </form>

@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
 
   appName: string = 'Recipes';
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }

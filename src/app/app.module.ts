@@ -21,6 +21,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { ItemEditorComponent } from './components/item-details/item-editor/item-editor.component';
 import {TextFieldModule} from "@angular/cdk/text-field";
+import { PrepTimePipePipe } from './pipes/prep-time-pipe.pipe';
+import { AddIngredientDialogComponent } from './dialogs/add-ingredient-dialog/add-ingredient-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {TextFieldModule} from "@angular/cdk/text-field";
     ItemDetailsComponent,
     DeleteConfirmationDialogComponent,
     SearchFilterPipe,
-    ItemEditorComponent
+    ItemEditorComponent,
+    PrepTimePipePipe,
+    AddIngredientDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ import {TextFieldModule} from "@angular/cdk/text-field";
   ],
   providers: [
     AuthorDialogComponent,
-    DeleteConfirmationDialogComponent
+    DeleteConfirmationDialogComponent,
+    AddIngredientDialogComponent
   ],
   bootstrap: [AppComponent]
 })

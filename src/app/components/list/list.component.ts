@@ -26,8 +26,7 @@ export class ListComponent implements OnInit {
     this.recipeService.getRecipes().subscribe(
       (res) => {
         this.list = res;
-        console.log(this.list)
-        this.changeDetectorRef.markForCheck();  // async pipe zamiast tego
+        this.changeDetectorRef.markForCheck();  // async pipe zamiast tego?
       },
       error => {
         console.log(error)
