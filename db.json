@@ -65,26 +65,6 @@
           "quantity": "400g"
         }
       ]
-    },
-    {
-      "name": "jajecznica",
-      "description": "jajecznica najlepsza ",
-      "preparationTimeInMinutes": 10,
-      "ingredients": [
-        {
-          "name": "jajko",
-          "quantity": "4"
-        },
-        {
-          "name": "masło",
-          "quantity": "20g"
-        },
-        {
-          "name": "pomidor",
-          "quantity": "100g"
-        }
-      ],
-      "id": "Ip1j6TJ"
     }
   ],
   "ingredients": [

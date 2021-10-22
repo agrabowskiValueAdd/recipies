@@ -6,14 +6,22 @@ import {Recipe} from "../Recipe";
 })
 export class SearchFilterPipe implements PipeTransform {
 
-  transform(value: Recipe[], args: string): any {
+  transform(value: Recipe[], searchString: string): any {
     if (!value) return null;
-    if (!args) return value;
+    if (!searchString) return value;
 
-    args = args.toLowerCase();
+    searchString = searchString.toLowerCase();
 
     return value.filter((recipe) => {
-      return recipe.name.toLowerCase().includes(args);
+      const ingredients = [];
+
+      for (let i=0; i<recipe.ingredients.length; i++) {
+          ingredients.push(recipe.ingredients[i].name);
+      }
+
+      const searchObject = recipe.name.toLowerCase() + JSON.stringify(ingredients).toLowerCase();
+
+      return searchObject.includes(searchString);
     })
   }
 

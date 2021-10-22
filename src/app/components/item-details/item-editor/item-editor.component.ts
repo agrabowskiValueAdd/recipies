@@ -5,6 +5,7 @@ import {AddIngredientDialogComponent} from "../../../dialogs/add-ingredient-dial
 import {Ingredient} from "../../../Ingredient";
 import {Recipe} from "../../../Recipe";
 import {RecipeService} from "../../../services/recipe.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-item-editor',
@@ -15,7 +16,8 @@ import {RecipeService} from "../../../services/recipe.service";
 export class ItemEditorComponent{
   ingredients: Ingredient[] = [];
 
-  constructor(private dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef, private recipeService: RecipeService) { }
+  constructor(private dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef,
+              private recipeService: RecipeService, private snackBar: MatSnackBar) { }
 
   newRecipeForm = new FormGroup({
     name: new FormControl('',
@@ -40,12 +42,13 @@ export class ItemEditorComponent{
     const newRecipe: Recipe = {...this.newRecipeForm.value, ingredients: this.ingredients};
 
     this.recipeService.createRecipe(newRecipe).subscribe(
-      res => {
-        console.log(res)
+      () => {
         this.ingredients = [];
+        this.snackBar.open('Recipe created', 'OK', {duration: 3000});
       },
       error => {
         console.log(error)
+        this.snackBar.open('Error while deleting the recipe', 'OK');
       }
     )
     this.newRecipeForm.reset();
