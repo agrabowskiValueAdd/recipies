@@ -30,4 +30,9 @@ export class RecipeService {
     const url = `${this.apiUrl}/recipes`;
     return this.http.post<Recipe>(url, recipe);
   }
+
+  updateRecipe(recipe: Recipe): Observable<Recipe> {
+    const url = `${this.apiUrl}/recipes/${recipe.id}`;
+    return this.http.put<Recipe>(url, recipe);
+  }
 }

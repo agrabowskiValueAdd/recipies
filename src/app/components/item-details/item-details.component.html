@@ -1,4 +1,4 @@
-<div *ngIf="item && !showEditor">
+<div *ngIf="item && !['create', 'edit'].includes(editorType)">
   <p class="recipe-name">{{item.name}}</p>
   <p class="recipe-description">{{item.description}}</p>
   <p>preparation time: <span style="font-weight: bold">{{item.preparationTimeInMinutes | prepTimePipe }}</span></p>
@@ -10,4 +10,5 @@
   </mat-list>
 </div>
 
-<app-item-editor *ngIf="showEditor"></app-item-editor>
+<app-add-recipe *ngIf="editorType === 'create'"></app-add-recipe>
+<app-edit-recipe *ngIf="editorType === 'edit'"></app-edit-recipe>

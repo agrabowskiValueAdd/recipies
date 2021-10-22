@@ -36,7 +36,7 @@ export class ListComponent implements OnInit {
 
   selectItem(id: string): void {
     this.selectedItemId = id;
-    this.sharedService.toggleEditor(false);
+    this.sharedService.toggleEditor('');
     this.sharedService.selectItem(this.selectedItemId);
   }
 
@@ -67,8 +67,13 @@ export class ListComponent implements OnInit {
     });
   }
 
-  addRecipeButton() {
-    this.sharedService.toggleEditor(true);
+  addRecipeButton(): void {
+    this.sharedService.toggleEditor('create');
+  }
+
+  editRecipe(id: string): void {
+    this.sharedService.selectItem(id);
+    this.sharedService.toggleEditor('edit');
   }
 
 }

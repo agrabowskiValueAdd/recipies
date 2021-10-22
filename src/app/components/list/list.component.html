@@ -17,9 +17,9 @@
     <div class="list-item">
       <span class="recipe-name" (click)="selectItem(item.id)">{{item.name}}</span>
       <span>
-       <mat-icon class="action-icon">edit</mat-icon>
+       <mat-icon class="action-icon" (click)="editRecipe(item.id)">edit</mat-icon>
        <mat-icon class="action-icon" (click)="openDeleteConfirmationDialog(item.id)">delete</mat-icon>
       </span>
-      </div>
+    </div>
   </mat-list-item>
 </mat-list>

@@ -19,10 +19,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
-import { ItemEditorComponent } from './components/item-details/item-editor/item-editor.component';
+import { AddRecipeComponent } from './components/item-details/add-recipe/add-recipe.component';
 import {TextFieldModule} from "@angular/cdk/text-field";
 import { PrepTimePipePipe } from './pipes/prep-time-pipe.pipe';
 import { AddIngredientDialogComponent } from './dialogs/add-ingredient-dialog/add-ingredient-dialog.component';
+import { EditRecipeComponent } from './components/item-details/edit-recipe/edit-recipe.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,10 @@ import { AddIngredientDialogComponent } from './dialogs/add-ingredient-dialog/ad
     ItemDetailsComponent,
     DeleteConfirmationDialogComponent,
     SearchFilterPipe,
-    ItemEditorComponent,
+    AddRecipeComponent,
     PrepTimePipePipe,
-    AddIngredientDialogComponent
+    AddIngredientDialogComponent,
+    EditRecipeComponent
   ],
   imports: [
     BrowserModule,

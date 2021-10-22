@@ -14,7 +14,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   item!: Recipe;
   sub!: Subscription;
   editorSub!: Subscription;
-  showEditor: boolean = false;
+  editorType: string = '';
 
   constructor(private sharedService: SharedService, private recipeService: RecipeService,
               private changeDetectorRef: ChangeDetectorRef) { }
@@ -29,7 +29,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
     this.editorSub = this.sharedService.getEditorVisibility().subscribe(
       (res) => {
-        this.showEditor = res;
+        this.editorType = res;
         this.changeDetectorRef.markForCheck();
       }
     )
@@ -37,6 +37,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.editorSub.unsubscribe();
   }
 
   getItem(id: string) {
@@ -46,25 +47,5 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.markForCheck();
       })
   }
-
-  // createRecipe() {
-  //   const newRecipe: Recipe = {
-  //     //id: "5",
-  //     name: "test123",
-  //     description: "test desc",
-  //     preparationTimeInMinutes: 30,
-  //     ingredients: []
-  //   }
-  //
-  //   this.recipeService.createRecipe(newRecipe).subscribe(
-  //     (res) => {
-  //       console.log(res)
-  //     },
-  //     error => {
-  //       console.log(error)
-  //     }
-  //   )
-  //
-  // }
 
 }

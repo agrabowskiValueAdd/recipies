@@ -5,9 +5,9 @@ import {BehaviorSubject, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class SharedService {
-  private showEditor: boolean = false;
+  private showEditor: string = '';
   private selectedIdSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  private showEditorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private showEditorSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor() { }
 
@@ -19,12 +19,12 @@ export class SharedService {
     return this.selectedIdSubject.asObservable();
   }
 
-  toggleEditor(show: boolean) {
-    this.showEditor = show;
+  toggleEditor(type: string) {
+    this.showEditor = type;
     this.showEditorSubject.next(this.showEditor);
   }
 
-  getEditorVisibility(): Observable<boolean> {
+  getEditorVisibility(): Observable<string> {
     return this.showEditorSubject.asObservable();
   }
 }
