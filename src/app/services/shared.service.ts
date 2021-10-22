@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class SharedService {
-  private showEditor: string = '';
+  private editorType: string = '';
   private selectedIdSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private showEditorSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
@@ -20,8 +20,8 @@ export class SharedService {
   }
 
   toggleEditor(type: string) {
-    this.showEditor = type;
-    this.showEditorSubject.next(this.showEditor);
+    this.editorType = type;
+    this.showEditorSubject.next(this.editorType);
   }
 
   getEditorVisibility(): Observable<string> {

@@ -24,8 +24,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       (res) => {
         if (res) {
           this.getItem(res);
-        }
-      })
+        }}
+    )
 
     this.editorSub = this.sharedService.getEditorVisibility().subscribe(
       (res) => {
@@ -41,11 +41,13 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   getItem(id: string) {
-    this.recipeService.getRecipeById(id).subscribe(
-      (res) => {
-        this.item = res;
-        this.changeDetectorRef.markForCheck();
-      })
+    if (this.editorType !== 'create' && this.editorType !== 'edit') {
+      this.recipeService.getRecipeById(id).subscribe(
+        (res) => {
+          this.item = res;
+          this.changeDetectorRef.markForCheck();
+        })
+    }
   }
 
 }

@@ -28,6 +28,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
               private sharedService: SharedService) { }
 
   ngOnInit(): void {
+
     this.sub = this.sharedService.getSelectedItem().subscribe(
       (res) => {
         if (res) {
