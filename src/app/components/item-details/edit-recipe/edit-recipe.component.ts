@@ -5,9 +5,9 @@ import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {SharedService} from "../../../services/shared.service";
 import {Recipe} from "../../../Recipe";
 import {AddIngredientDialogComponent} from "../../../dialogs/add-ingredient-dialog/add-ingredient-dialog.component";
+import {SharedService} from "../../../services/shared.service";
 
 @Component({
   selector: 'app-edit-recipe',
@@ -16,12 +16,10 @@ import {AddIngredientDialogComponent} from "../../../dialogs/add-ingredient-dial
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditRecipeComponent implements OnInit, OnDestroy {
-
   sub!: Subscription;
   ingredients: Ingredient[] = [];
   editRecipeForm!: FormGroup;
   item!: Recipe;
-
 
   constructor(private dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef,
               private recipeService: RecipeService, private snackBar: MatSnackBar,
@@ -29,10 +27,38 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.sub = this.sharedService.getSelectedItem().subscribe(
+    // this.getCurrentRecipeFromLocalStorage().then(
+    //   res => {
+    //     this.item = res;
+    //     this.editRecipeForm = new FormGroup({
+    //       name: new FormControl(this.item.name,
+    //         [
+    //           Validators.required,
+    //           Validators.minLength(3),
+    //           Validators.maxLength(80)
+    //         ]),
+    //       description: new FormControl(this.item.description,
+    //         [
+    //           Validators.required,
+    //           Validators.minLength(15),
+    //           Validators.maxLength(255)
+    //         ]),
+    //       preparationTimeInMinutes: new FormControl(this.item.preparationTimeInMinutes,
+    //         [
+    //           Validators.required
+    //         ])
+    //     });
+    //
+    //     this.ingredients = this.item.ingredients;
+    //     this.changeDetectorRef.markForCheck()
+    //   }
+    // )
+
+
+    this.sub = this.sharedService.getSelectedItemId().subscribe(
       (res) => {
         if (res) {
-          this.getItem(res).then(() => {
+          this.getRecipe(res).then(() => {
             this.editRecipeForm = new FormGroup({
               name: new FormControl(this.item.name,
                 [
@@ -62,7 +88,15 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  getItem(id: string): Promise<Recipe> {
+  getCurrentRecipeFromLocalStorage(): Promise<Recipe> {
+    return new Promise((resolve) => {
+
+      const currentRecipe = JSON.parse(<string>localStorage.getItem('currentRecipe'));
+      resolve(currentRecipe);
+    })
+  }
+
+  getRecipe(id: string) {
     return new Promise((resolve, reject) => {
       this.recipeService.getRecipeById(id).subscribe(
         (res) => {
@@ -74,7 +108,6 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
           reject(error);
         })
     })
-
   }
 
   removeIngredient(ingredient: Ingredient) {

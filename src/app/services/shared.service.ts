@@ -15,7 +15,7 @@ export class SharedService {
     this.selectedIdSubject.next(id);
   }
 
-  getSelectedItem() {
+  getSelectedItemId() {
     return this.selectedIdSubject.asObservable();
   }
 

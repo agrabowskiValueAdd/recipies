@@ -3,6 +3,7 @@ import {SharedService} from "../../services/shared.service";
 import {Subscription} from "rxjs";
 import {RecipeService} from "../../services/recipe.service";
 import {Recipe} from "../../Recipe";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-item-details',
@@ -17,10 +18,16 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   editorType: string = '';
 
   constructor(private sharedService: SharedService, private recipeService: RecipeService,
-              private changeDetectorRef: ChangeDetectorRef) { }
+              private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.sub = this.sharedService.getSelectedItem().subscribe(
+    this.route.params.subscribe(
+      params => {
+        console.log(params)
+      }
+    )
+
+    this.sub = this.sharedService.getSelectedItemId().subscribe(
       (res) => {
         if (res) {
           this.getItem(res);
@@ -46,6 +53,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         (res) => {
           this.item = res;
           this.changeDetectorRef.markForCheck();
+          localStorage.setItem('currentRecipe', JSON.stringify(res));
         })
     }
   }
