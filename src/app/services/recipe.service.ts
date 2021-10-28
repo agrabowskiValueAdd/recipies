@@ -11,6 +11,7 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
 
+  // returns 10 items by default
   getRecipes(): Observable<Recipe[]> {
     const url = `${this.apiUrl}/recipes`;
     return this.http.get<Recipe[]>(url);
