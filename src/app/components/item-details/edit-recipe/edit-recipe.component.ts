@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {Ingredient} from "../../../Ingredient";
+import {Ingredient} from "../../../models/Ingredient";
 import {MatDialog} from "@angular/material/dialog";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {Recipe} from "../../../Recipe";
+import {Recipe} from "../../../models/Recipe";
 import {AddIngredientDialogComponent} from "../../../dialogs/add-ingredient-dialog/add-ingredient-dialog.component";
 import {SharedService} from "../../../services/shared.service";
 

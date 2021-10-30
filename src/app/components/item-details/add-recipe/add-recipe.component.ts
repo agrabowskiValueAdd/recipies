@@ -2,10 +2,12 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/co
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {AddIngredientDialogComponent} from "../../../dialogs/add-ingredient-dialog/add-ingredient-dialog.component";
-import {Ingredient} from "../../../Ingredient";
-import {Recipe} from "../../../Recipe";
+import {Ingredient} from "../../../models/Ingredient";
+import {Recipe} from "../../../models/Recipe";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Store} from "@ngrx/store";
+import {createRecipe} from "../../../+state/recipe.actions";
 
 @Component({
   selector: 'app-add-recipe',
@@ -17,7 +19,7 @@ export class AddRecipeComponent {
   ingredients: Ingredient[] = [];
 
   constructor(private dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef,
-              private recipeService: RecipeService, private snackBar: MatSnackBar) { }
+              private recipeService: RecipeService, private snackBar: MatSnackBar, private store: Store) { }
 
 
   newRecipeForm = new FormGroup({
@@ -42,16 +44,18 @@ export class AddRecipeComponent {
   addRecipe() {
     const newRecipe: Recipe = {...this.newRecipeForm.value, ingredients: this.ingredients};
 
-    this.recipeService.createRecipe(newRecipe).subscribe(
-      () => {
-        this.ingredients = [];
-        this.newRecipeForm.reset();
-        this.snackBar.open('Recipe created', 'OK', {duration: 3000});
-      },
-      () => {
-        this.snackBar.open('Error while deleting the recipe', 'OK');
-      }
-    )
+    this.store.dispatch(createRecipe(newRecipe));
+
+    // this.recipeService.createRecipe(newRecipe).subscribe(
+    //   () => {
+    //     this.ingredients = [];
+    //     this.newRecipeForm.reset();
+    //     this.snackBar.open('Recipe created', 'OK', {duration: 3000});
+    //   },
+    //   () => {
+    //     this.snackBar.open('Error while deleting the recipe', 'OK');
+    //   }
+    // )
   }
 
   openAddIngredientDialog() {
@@ -73,7 +77,8 @@ export class AddRecipeComponent {
   }
 
   isFormValid(): boolean {
-    return this.newRecipeForm.valid && this.ingredients.length >= 2;
+    // return this.newRecipeForm.valid && this.ingredients.length >= 2;
+    return true;
   }
 
 }

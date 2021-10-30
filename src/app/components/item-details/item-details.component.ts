@@ -1,9 +1,12 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from "../../services/shared.service";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {RecipeService} from "../../services/recipe.service";
-import {Recipe} from "../../Recipe";
+import {Recipe} from "../../models/Recipe";
 import {ActivatedRoute} from "@angular/router";
+import {select, Store} from "@ngrx/store";
+import {RecipeState} from "../../+state/recipe.reducer";
+import {recipeIdSelector, recipeSelector} from "../../+state/recipe.selector";
 
 @Component({
   selector: 'app-item-details',
@@ -12,13 +15,15 @@ import {ActivatedRoute} from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDetailsComponent implements OnInit, OnDestroy {
-  item!: Recipe;
-  sub!: Subscription;
-  editorSub!: Subscription;
+  item: Recipe;
+  sub: Subscription;
+  editorSub: Subscription;
   editorType: string = '';
+  item$: Observable<Recipe>;
 
   constructor(private sharedService: SharedService, private recipeService: RecipeService,
-              private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute) { }
+              private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute,
+              private store: Store<RecipeState>) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -27,10 +32,12 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
       }
     )
 
+
     this.sub = this.sharedService.getSelectedItemId().subscribe(
-      (res) => {
+      (res: string) => {
         if (res) {
           this.getItem(res);
+          // this.item$ = this.store.pipe(select(recipeIdSelector(res)));
         }}
     )
 

@@ -2,42 +2,55 @@ import {ChangeDetectorRef} from '@angular/core';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {RecipeService} from "../../services/recipe.service";
 import {SharedService} from "../../services/shared.service";
-import {Recipe} from "../../Recipe";
+import {Recipe} from "../../models/Recipe";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DeleteConfirmationDialogComponent} from "../../dialogs/confirmation-dialog/delete-confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {select, Store} from "@ngrx/store";
+import * as recipeActions from "../../+state/recipe.actions";
+import {Observable} from "rxjs";
+import {recipeSelector, selectedRecipeSelector} from "../../+state/recipe.selector";
+import {RecipeState} from "../../+state/recipe.reducer";
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent implements OnInit {
   list: Recipe[] = [];
   selectedItemId!: string;
   searchValue!: string;
+  list$ = this.store.pipe(select(recipeSelector));
+  selectedRecipe$ = this.store.pipe(select(selectedRecipeSelector))
+
 
   constructor(private recipeService: RecipeService, private sharedService: SharedService,
               private changeDetectorRef: ChangeDetectorRef, private snackBar: MatSnackBar,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog, private store: Store<RecipeState>) { }
 
   ngOnInit(): void {
-    this.recipeService.getRecipes().subscribe(
-      (res) => {
-        this.list = res;
-        this.changeDetectorRef.markForCheck();  // async pipe zamiast tego?
-      },
-      error => {
-        console.log(error)
-      }
-    )
+    // this.recipeService.getRecipes().subscribe(
+    //   (res) => {
+    //     this.list = res;
+    //     this.changeDetectorRef.markForCheck();  // async pipe zamiast tego?
+    //   },
+    //   error => {
+    //     console.log(error)
+    //   }
+    // )
+
+    this.store.dispatch(recipeActions.getRecipes());
+    console.log(this.selectedRecipe$)
   }
 
-  selectItem(id: string): void {
-    this.selectedItemId = id;
+  selectItem(recipe: Recipe): void {
+    this.selectedItemId = recipe.id;
     this.sharedService.toggleEditor('');
     this.sharedService.selectItem(this.selectedItemId);
+
+    this.store.dispatch(recipeActions.selectRecipe(recipe));
   }
 
   deleteRecipe(id: string): void {
