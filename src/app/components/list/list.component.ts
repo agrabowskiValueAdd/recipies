@@ -8,8 +8,7 @@ import {DeleteConfirmationDialogComponent} from "../../dialogs/confirmation-dial
 import {MatDialog} from "@angular/material/dialog";
 import {select, Store} from "@ngrx/store";
 import * as recipeActions from "../../+state/recipe.actions";
-import {Observable} from "rxjs";
-import {recipeSelector, selectedRecipeSelector} from "../../+state/recipe.selector";
+import * as recipeSelectors from '../../+state/recipe.selector'
 import {RecipeState} from "../../+state/recipe.reducer";
 
 @Component({
@@ -22,8 +21,14 @@ export class ListComponent implements OnInit {
   list: Recipe[] = [];
   selectedItemId!: string;
   searchValue!: string;
-  list$ = this.store.pipe(select(recipeSelector));
-  selectedRecipe$ = this.store.pipe(select(selectedRecipeSelector))
+  // list$ = this.store.pipe(select(recipeSelectors.getAllRecipes)).subscribe(
+  //   (res) => console.log(res))
+
+  // list$: Observable<Recipe[]>;
+
+
+  list$ = this.store.pipe(select(recipeSelectors.getAllRecipes));
+  selectedRecipe$ = this.store.pipe(select(recipeSelectors.getSelectedRecipe));
 
 
   constructor(private recipeService: RecipeService, private sharedService: SharedService,
@@ -40,9 +45,8 @@ export class ListComponent implements OnInit {
     //     console.log(error)
     //   }
     // )
-
+    //
     this.store.dispatch(recipeActions.getRecipes());
-    console.log(this.selectedRecipe$)
   }
 
   selectItem(recipe: Recipe): void {

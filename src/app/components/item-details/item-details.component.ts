@@ -1,12 +1,11 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from "../../services/shared.service";
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {RecipeService} from "../../services/recipe.service";
 import {Recipe} from "../../models/Recipe";
 import {ActivatedRoute} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {RecipeState} from "../../+state/recipe.reducer";
-import {recipeIdSelector, recipeSelector} from "../../+state/recipe.selector";
 
 @Component({
   selector: 'app-item-details',
@@ -19,7 +18,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   sub: Subscription;
   editorSub: Subscription;
   editorType: string = '';
-  item$: Observable<Recipe>;
 
   constructor(private sharedService: SharedService, private recipeService: RecipeService,
               private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute,

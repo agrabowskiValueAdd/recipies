@@ -6,9 +6,9 @@ export const getRecipes = createAction('[Recipes] Get Recipes');
 
 export const getRecipesSuccess = createAction(
   '[Recipes] Get Recipes Success',
-  (recipes: ReadonlyArray<Recipe>) => recipes
-  // props<{recipes: ReadonlyArray<Recipe>}>()
-)
+  (recipes: Recipe[]) => ({recipes})
+  // props<{recipes: Recipe[]}>()
+);
 
 export const selectRecipe = createAction(
   '[Recipes] Select Recipe',

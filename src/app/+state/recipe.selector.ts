@@ -1,19 +1,25 @@
-import {createSelector} from "@ngrx/store";
+import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {RecipeState} from "./recipe.reducer";
 import {Recipe} from "../models/Recipe";
+import * as fromRecipe from './recipe.reducer'
 
-export const recipeSelector = createSelector(
-  (state: RecipeState) => state.recipes,
-  (recipes: ReadonlyArray<Recipe>) => recipes
+const getRecipeState = createFeatureSelector<RecipeState>('recipes');
+
+export const getAllRecipes = createSelector(
+  getRecipeState,
+  fromRecipe.getRecipes
 );
 
-export const selectedRecipeSelector = createSelector(
-  (state: RecipeState) => state.selectedRecipe,
-  (recipe: Readonly<Recipe>) => recipe
-);
+export const getSelectedRecipe = (state: RecipeState) => state.selectedRecipe;
+
+// to test, this or aboveng
+// export const selectedRecipeSelector = createSelector(
+//   (state: RecipeState) => state.selectedRecipe,
+//   (recipe: Readonly<Recipe>) => recipe
+// );
 
 export const recipeIdSelector = (id: string) => {
-  createSelector(recipeSelector, (recipes) => {
+  createSelector(getAllRecipes, (recipes) => {
     return recipes.filter((recipe: Recipe) => recipe.id === id);
   })
 };
