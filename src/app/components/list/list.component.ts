@@ -21,14 +21,9 @@ export class ListComponent implements OnInit {
   list: Recipe[] = [];
   selectedItemId!: string;
   searchValue!: string;
-  // list$ = this.store.pipe(select(recipeSelectors.getAllRecipes)).subscribe(
-  //   (res) => console.log(res))
-
-  // list$: Observable<Recipe[]>;
 
 
   list$ = this.store.pipe(select(recipeSelectors.getAllRecipes));
-  selectedRecipe$ = this.store.pipe(select(recipeSelectors.getSelectedRecipe));
 
 
   constructor(private recipeService: RecipeService, private sharedService: SharedService,
@@ -36,16 +31,6 @@ export class ListComponent implements OnInit {
               private dialog: MatDialog, private store: Store<RecipeState>) { }
 
   ngOnInit(): void {
-    // this.recipeService.getRecipes().subscribe(
-    //   (res) => {
-    //     this.list = res;
-    //     this.changeDetectorRef.markForCheck();  // async pipe zamiast tego?
-    //   },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
-    //
     this.store.dispatch(recipeActions.getRecipes());
   }
 

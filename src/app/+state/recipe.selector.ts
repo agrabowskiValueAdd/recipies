@@ -10,16 +10,7 @@ export const getAllRecipes = createSelector(
   fromRecipe.getRecipes
 );
 
-export const getSelectedRecipe = (state: RecipeState) => state.selectedRecipe;
-
-// to test, this or aboveng
-// export const selectedRecipeSelector = createSelector(
-//   (state: RecipeState) => state.selectedRecipe,
-//   (recipe: Readonly<Recipe>) => recipe
-// );
-
-export const recipeIdSelector = (id: string) => {
-  createSelector(getAllRecipes, (recipes) => {
-    return recipes.filter((recipe: Recipe) => recipe.id === id);
-  })
-};
+export const getSelectedRecipe = createSelector(
+  getRecipeState,
+  fromRecipe.getSelectedRecipe
+);
