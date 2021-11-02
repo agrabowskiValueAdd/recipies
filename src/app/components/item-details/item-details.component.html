@@ -1,14 +1,23 @@
-<div *ngIf="item && !['create', 'edit'].includes(editorType)">
-  <p class="recipe-name">{{item.name}}</p>
-  <p class="recipe-description">{{item.description}}</p>
-  <p>preparation time: <span style="font-weight: bold">{{item.preparationTimeInMinutes | prepTimePipe }}</span></p>
-  <p>Ingredients:</p>
-  <mat-list>
-    <mat-list-item *ngFor="let ingredient of item.ingredients">
+<ng-container *ngIf="item$ | async as item">
+  <div *ngIf="(editorType$ | async) === 'preview'">
+    <p class="recipe-name">{{item.name}}</p>
+    <p class="recipe-description">{{item.description}}</p>
+    <p>preparation time: <span style="font-weight: bold">{{item.preparationTimeInMinutes | prepTimePipe }}</span></p>
+    <p>Ingredients:</p>
+    <mat-list>
+      <mat-list-item *ngFor="let ingredient of item.ingredients">
         <span>{{ingredient.name}} ({{ingredient.quantity}})</span>
-    </mat-list-item>
-  </mat-list>
-</div>
+      </mat-list-item>
+    </mat-list>
+  </div>
 
-<app-add-recipe *ngIf="editorType === 'create'"></app-add-recipe>
-<app-edit-recipe *ngIf="editorType === 'edit'"></app-edit-recipe>
+<!--  ============ EDIT/CREATE ============  -->
+  <app-add-recipe *ngIf="(editorType$ | async) === 'create'"></app-add-recipe>
+
+  <app-edit-recipe
+    *ngIf="(editorType$ | async) === 'edit'"
+    [item]="item">
+  </app-edit-recipe>
+<!--  ============ EDIT/CREATE ============  -->
+
+</ng-container>

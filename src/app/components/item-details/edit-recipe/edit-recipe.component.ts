@@ -1,118 +1,56 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {Ingredient} from "../../../models/Ingredient";
 import {MatDialog} from "@angular/material/dialog";
-import {RecipeService} from "../../../services/recipe.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Subscription} from "rxjs";
 import {Recipe} from "../../../models/Recipe";
 import {AddIngredientDialogComponent} from "../../../dialogs/add-ingredient-dialog/add-ingredient-dialog.component";
-import {SharedService} from "../../../services/shared.service";
+import {Store} from "@ngrx/store";
+import {RecipeState} from "../../../+state/recipe.reducer";
+import * as recipeActions from '../../../+state/recipe.actions';
 
 @Component({
   selector: 'app-edit-recipe',
   templateUrl: './edit-recipe.component.html',
   styleUrls: ['./edit-recipe.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditRecipeComponent implements OnInit, OnDestroy {
-  sub!: Subscription;
-  ingredients: Ingredient[] = [];
-  editRecipeForm!: FormGroup;
-  item!: Recipe;
+export class EditRecipeComponent implements OnInit {
+  @Input() item: Recipe;
+
+  ingredients: Ingredient[];
+  editRecipeForm: FormGroup;
 
   constructor(private dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef,
-              private recipeService: RecipeService, private snackBar: MatSnackBar,
-              private sharedService: SharedService) { }
+              private store: Store<RecipeState>) { }
 
   ngOnInit(): void {
 
-    // this.getCurrentRecipeFromLocalStorage().then(
-    //   res => {
-    //     this.item = res;
-    //     this.editRecipeForm = new FormGroup({
-    //       name: new FormControl(this.item.name,
-    //         [
-    //           Validators.required,
-    //           Validators.minLength(3),
-    //           Validators.maxLength(80)
-    //         ]),
-    //       description: new FormControl(this.item.description,
-    //         [
-    //           Validators.required,
-    //           Validators.minLength(15),
-    //           Validators.maxLength(255)
-    //         ]),
-    //       preparationTimeInMinutes: new FormControl(this.item.preparationTimeInMinutes,
-    //         [
-    //           Validators.required
-    //         ])
-    //     });
-    //
-    //     this.ingredients = this.item.ingredients;
-    //     this.changeDetectorRef.markForCheck()
-    //   }
-    // )
+   console.log(this.item);
 
+    this.editRecipeForm = new FormGroup({
+      name: new FormControl(this.item.name,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(80)
+        ]),
+      description: new FormControl(this.item.description,
+        [
+          Validators.required,
+          Validators.minLength(15),
+          Validators.maxLength(255)
+        ]),
+      preparationTimeInMinutes: new FormControl(this.item.preparationTimeInMinutes,
+        [
+          Validators.required
+        ])
+    });
 
-    this.sub = this.sharedService.getSelectedItemId().subscribe(
-      (res) => {
-        if (res) {
-          this.getRecipe(res).then(() => {
-            this.editRecipeForm = new FormGroup({
-              name: new FormControl(this.item.name,
-                [
-                  Validators.required,
-                  Validators.minLength(3),
-                  Validators.maxLength(80)
-                ]),
-              description: new FormControl(this.item.description,
-                [
-                  Validators.required,
-                  Validators.minLength(15),
-                  Validators.maxLength(255)
-                ]),
-              preparationTimeInMinutes: new FormControl(this.item.preparationTimeInMinutes,
-                [
-                  Validators.required
-                ])
-            });
-
-            this.ingredients = this.item.ingredients;
-          })
-        }
-      })
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  getCurrentRecipeFromLocalStorage(): Promise<Recipe> {
-    return new Promise((resolve) => {
-
-      const currentRecipe = JSON.parse(<string>localStorage.getItem('currentRecipe'));
-      resolve(currentRecipe);
-    })
-  }
-
-  getRecipe(id: string) {
-    return new Promise((resolve, reject) => {
-      this.recipeService.getRecipeById(id).subscribe(
-        (res) => {
-          this.item = res;
-          this.changeDetectorRef.markForCheck();
-          resolve(res);
-        },
-        error => {
-          reject(error);
-        })
-    })
+    this.ingredients = this.item.ingredients;
   }
 
   removeIngredient(ingredient: Ingredient) {
     this.ingredients = this.ingredients.filter(i => i.name !== ingredient.name);
-    this.changeDetectorRef.markForCheck();
   }
 
   openAddIngredientDialog() {
@@ -122,8 +60,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ingredients.push(result);
-        this.changeDetectorRef.markForCheck();
+        this.ingredients = [...this.ingredients, result];
       }
     });
   }
@@ -135,14 +72,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
   updateRecipe() {
     const updatedRecipe: Recipe = { id: this.item.id, ...this.editRecipeForm.value, ingredients: this.ingredients };
 
-    this.recipeService.updateRecipe(updatedRecipe).subscribe(
-      () => {
-        this.snackBar.open('Recipe updated', 'OK', {duration: 3000});
-      },
-      () => {
-        this.snackBar.open('Error while updating the recipe', 'OK');
-      }
-    )
+    this.store.dispatch(recipeActions.updateRecipe(updatedRecipe));
+    // this.store.dispatch(recipeActions.getRecipes());
   }
 
 }

@@ -6,8 +6,7 @@ import {Action} from "rxjs/internal/scheduler/Action";
 export interface RecipeState {
   recipes: Recipe[];
   selectedRecipe: Recipe;
-  showEditor: boolean;
-  showRecipe: boolean;
+  editorType: string;
 }
 
 const initialState: RecipeState = {
@@ -19,18 +18,50 @@ const initialState: RecipeState = {
     description: '',
     preparationTimeInMinutes: 0
   },
-  showEditor: false,
-  showRecipe: false
+  editorType: ''
+
 }
 
 export const recipeReducer = createReducer(
   initialState,
-  on(recipeActions.getRecipes, (state) => ({...state})),
+  // on(recipeActions.getRecipes, (state) => ({...state})),
   on(recipeActions.getRecipesSuccess, (state, {recipes}) => ({...state, recipes})),
-  // on(recipeActions.createRecipeSuccess, (state, recipe) => ({...state, recipes: [...state.recipes, recipe]}))
+  // on(recipeActions.createRecipe, (state) => ({...state})),
   on(recipeActions.createRecipeSuccess, (state, recipe) => ({...state, recipe})),
-  on(recipeActions.selectRecipe, (state, recipe) => ({...state, selectedRecipe: recipe}))
+
+  on(recipeActions.selectRecipe, (state, recipe) => (
+    {
+      ...state,
+      selectedRecipe: recipe,
+      editorType: 'preview'
+    }
+  )),
+
+  on(recipeActions.editRecipe, (state, recipe) => (
+    {
+      ...state,
+      selectedRecipe: recipe,
+      editorType: 'edit'
+    }
+  )),
+
+  on(recipeActions.updateRecipeSuccess, (state, recipe) => ({...state, recipes: [...state.recipes, recipe]})),
+
+  on(recipeActions.deleteRecipeSuccess, (state, recipeId) => (
+    {
+      ...state,
+      recipes: state.recipes.filter((recipe) => recipe.id !== recipeId)
+    }
+  )),
+
+  on(recipeActions.addRecipe, (state) => (
+    {
+      ...state,
+      editorType: 'create'
+    }
+  ))
 )
 
 export const getRecipes = (state: RecipeState) => state.recipes;
 export const getSelectedRecipe = (state: RecipeState) => state.selectedRecipe;
+export const getEditorType = (state: RecipeState) => state.editorType;

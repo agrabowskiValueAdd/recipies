@@ -3,8 +3,8 @@
     {
       "id": "1",
       "name": "pasta broccoli",
-      "preparationTimeInMinutes": 20,
       "description": "meatless Italian pasta with broccoli, olive and cheese",
+      "preparationTimeInMinutes": 20,
       "ingredients": [
         {
           "id": "1",
@@ -25,8 +25,13 @@
           "id": "4",
           "name": "broccoli",
           "quantity": "250g"
+        },
+        {
+          "name": "pepper",
+          "quantity": "10g"
         }
-      ]
+      ],
+      "type": "[Recipes] Update Recipe"
     },
     {
       "id": "2",

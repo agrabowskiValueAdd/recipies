@@ -6,13 +6,13 @@ import {Recipe} from "../models/Recipe";
 })
 export class SearchFilterPipe implements PipeTransform {
 
-  transform(value: Recipe[], searchString: string): any {
+  transform(value: any, searchString: string): any {
     if (!value) return null;
     if (!searchString) return value;
 
     searchString = searchString.toLowerCase();
 
-    return value.filter((recipe) => {
+    return value.filter((recipe: any) => {
       const ingredients = [];
 
       for (let i=0; i<recipe.ingredients.length; i++) {

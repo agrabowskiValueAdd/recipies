@@ -8,8 +8,9 @@ import {DeleteConfirmationDialogComponent} from "../../dialogs/confirmation-dial
 import {MatDialog} from "@angular/material/dialog";
 import {select, Store} from "@ngrx/store";
 import * as recipeActions from "../../+state/recipe.actions";
-import * as recipeSelectors from '../../+state/recipe.selector'
+import * as recipeSelectors from '../../+state/recipe.selector';
 import {RecipeState} from "../../+state/recipe.reducer";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-list',
@@ -19,16 +20,16 @@ import {RecipeState} from "../../+state/recipe.reducer";
 })
 export class ListComponent implements OnInit {
   list: Recipe[] = [];
-  selectedItemId!: string;
-  searchValue!: string;
-
-
-  list$ = this.store.pipe(select(recipeSelectors.getAllRecipes));
+  selectedItemId: string;
+  searchValue: string;
+  list$: Observable<Recipe[]>;
 
 
   constructor(private recipeService: RecipeService, private sharedService: SharedService,
               private changeDetectorRef: ChangeDetectorRef, private snackBar: MatSnackBar,
-              private dialog: MatDialog, private store: Store<RecipeState>) { }
+              private dialog: MatDialog, private store: Store<RecipeState>) {
+    this.list$ = this.store.pipe(select(recipeSelectors.getAllRecipes));
+  }
 
   ngOnInit(): void {
     this.store.dispatch(recipeActions.getRecipes());
@@ -36,46 +37,48 @@ export class ListComponent implements OnInit {
 
   selectItem(recipe: Recipe): void {
     this.selectedItemId = recipe.id;
-    this.sharedService.toggleEditor('');
-    this.sharedService.selectItem(this.selectedItemId);
-
     this.store.dispatch(recipeActions.selectRecipe(recipe));
   }
 
-  deleteRecipe(id: string): void {
-    this.recipeService.deleteRecipe(id).subscribe(
-      () => {
-        this.snackBar.open('Recipe deleted', 'OK', {duration: 3000});
-        this.list = this.list.filter(item => item.id !== id);
-        this.changeDetectorRef.markForCheck();
-      },
-      error => {
-        console.log(error)
-        this.snackBar.open('Error while deleting the recipe', 'OK');
-      }
-    )
+  deleteRecipe(recipeId: string): void {
+    this.store.dispatch(recipeActions.deleteRecipe({recipeId}));
+
+    // this.recipeService.deleteRecipe(id).subscribe(
+    //   () => {
+    //     this.snackBar.open('Recipe deleted', 'OK', {duration: 3000});
+    //     this.list = this.list.filter(item => item.id !== id);
+    //     this.changeDetectorRef.markForCheck();
+    //   },
+    //   error => {
+    //     console.log(error)
+    //     this.snackBar.open('Error while deleting the recipe', 'OK');
+    //   }
+    // )
   }
 
-  openDeleteConfirmationDialog(id: string): void {
+  openDeleteConfirmationDialog(recipeId: string): void {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '250px',
-      data: {id}
+      data: {recipeId}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteRecipe(result.id);
+        this.deleteRecipe(result.recipeId);
       }
     });
   }
 
   addRecipeButton(): void {
-    this.sharedService.toggleEditor('create');
+    this.store.dispatch(recipeActions.addRecipe());
   }
 
-  editRecipe(id: string): void {
-    this.sharedService.selectItem(id);
-    this.sharedService.toggleEditor('edit');
+  editRecipe(recipe: Recipe): void {
+    // this.sharedService.selectItem(id);
+    // this.sharedService.toggleEditor('edit');
+
+    this.selectedItemId = recipe.id;
+    this.store.dispatch(recipeActions.editRecipe(recipe));
   }
 
 }
