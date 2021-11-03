@@ -8,6 +8,15 @@
     margin-bottom: 20px;
   }
 
+  .ingredients-top {
+    display: flex;
+    align-items: baseline;
+
+    button {
+      margin-left: 15px;
+    }
+  }
+
   .ingredient-list {
     display: flex;
     flex-direction: column;
@@ -21,6 +30,4 @@
       cursor: pointer;
     }
   }
-
-
 }

@@ -30,6 +30,7 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 import {RecipeEffects} from "./+state/recipe.effects";
 import {RequestInterceptor} from "./request-interceptor";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import {RequestInterceptor} from "./request-interceptor";
     MatSnackBarModule,
     MatButtonModule,
     MatInputModule,
+    MatTooltipModule,
     FormsModule,
     ReactiveFormsModule,
     TextFieldModule,

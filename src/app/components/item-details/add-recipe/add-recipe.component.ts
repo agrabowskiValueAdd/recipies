@@ -18,8 +18,9 @@ import {createRecipe} from "../../../+state/recipe.actions";
 export class AddRecipeComponent {
   ingredients: Ingredient[] = [];
 
-  constructor(private dialog: MatDialog, private changeDetectorRef: ChangeDetectorRef,
-              private recipeService: RecipeService, private snackBar: MatSnackBar, private store: Store) { }
+  constructor(private dialog: MatDialog, private recipeService: RecipeService,
+              private snackBar: MatSnackBar, private store: Store,
+              private changeDetectorRef: ChangeDetectorRef) { }
 
 
   newRecipeForm = new FormGroup({
@@ -54,7 +55,7 @@ export class AddRecipeComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ingredients.push(result);
+        this.ingredients = [...this.ingredients, result];
         this.changeDetectorRef.markForCheck();
       }
     });
@@ -62,7 +63,6 @@ export class AddRecipeComponent {
 
   removeIngredient(ingredient: Ingredient) {
     this.ingredients = this.ingredients.filter(i => i.name !== ingredient.name);
-    this.changeDetectorRef.markForCheck();
   }
 
   isFormValid(): boolean {

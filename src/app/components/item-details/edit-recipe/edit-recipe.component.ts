@@ -12,7 +12,7 @@ import * as recipeActions from '../../../+state/recipe.actions';
   selector: 'app-edit-recipe',
   templateUrl: './edit-recipe.component.html',
   styleUrls: ['./edit-recipe.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditRecipeComponent implements OnInit {
   @Input() item: Recipe;
@@ -24,8 +24,6 @@ export class EditRecipeComponent implements OnInit {
               private store: Store<RecipeState>) { }
 
   ngOnInit(): void {
-
-   console.log(this.item);
 
     this.editRecipeForm = new FormGroup({
       name: new FormControl(this.item.name,
@@ -61,6 +59,7 @@ export class EditRecipeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.ingredients = [...this.ingredients, result];
+        this.changeDetectorRef.markForCheck();
       }
     });
   }
@@ -70,7 +69,11 @@ export class EditRecipeComponent implements OnInit {
   }
 
   updateRecipe() {
-    const updatedRecipe: Recipe = { id: this.item.id, ...this.editRecipeForm.value, ingredients: this.ingredients };
+    const updatedRecipe: Recipe = {
+      id: this.item.id,
+      ...this.editRecipeForm.value,
+      ingredients: this.ingredients
+    };
 
     this.store.dispatch(recipeActions.updateRecipe(updatedRecipe));
   }

@@ -24,7 +24,11 @@
     <mat-hint>In minutes</mat-hint>
   </mat-form-field>
 
-  <p>Ingredients (add two at least)</p>
+  <div class="ingredients-top">
+    <p>Ingredients (add two at least)</p>
+    <button mat-raised-button (click)="openAddIngredientDialog()">Add ingredient</button>
+  </div>
+
   <div class="ingredient-list">
     <p *ngFor="let i of ingredients">
       <span>{{i.name}} ({{i.quantity}})</span>
@@ -32,7 +36,6 @@
     </p>
   </div>
 
-  <button mat-raised-button (click)="openAddIngredientDialog()">Add ingredient</button>
 </div>
   <button mat-raised-button color="primary" (click)="addRecipe()" [disabled]="!isFormValid()">Add recipe</button>
 </form>

@@ -56,10 +56,7 @@ export const recipeReducer = createReducer(
     {
       ...state,
       recipes: state.recipes.map((r) => {
-        if (r.id === updatedRecipe.id) {
-          return updatedRecipe;
-        }
-        return r;
+        return updatedRecipe.id === r.id ? updatedRecipe : r;
       }),
       selectedRecipe: updatedRecipe,
       editorType: 'preview'

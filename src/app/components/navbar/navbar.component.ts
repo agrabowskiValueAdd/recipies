@@ -9,7 +9,6 @@ import { AuthorDialogComponent } from "../../dialogs/author-dialog/author-dialog
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit {
-
   appName: string = 'Recipes';
 
   constructor(private dialog: MatDialog) { }
