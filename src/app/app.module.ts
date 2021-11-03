@@ -9,7 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { AuthorDialogComponent } from "./dialogs/author-dialog/author-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ListComponent } from "./components/list/list.component";
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { MatListModule } from "@angular/material/list";
 import { ItemDetailsComponent } from "./components/item-details/item-details.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
@@ -29,6 +29,7 @@ import {recipeReducer,} from "./+state/recipe.reducer";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 import {RecipeEffects} from "./+state/recipe.effects";
+import {RequestInterceptor} from "./request-interceptor";
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import {RecipeEffects} from "./+state/recipe.effects";
   providers: [
     AuthorDialogComponent,
     DeleteConfirmationDialogComponent,
-    AddIngredientDialogComponent
+    AddIngredientDialogComponent,
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

@@ -20,7 +20,11 @@ export class ItemDetailsComponent implements OnInit {
 
   constructor(private sharedService: SharedService, private recipeService: RecipeService,
               private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute,
-              private store: Store<RecipeState>) { }
+              private store: Store<RecipeState>) {
+
+    this.editorType$ = this.store.pipe(select(recipeSelectors.getEditorType));
+    this.item$ = this.store.pipe(select(recipeSelectors.getSelectedRecipe));
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -28,9 +32,6 @@ export class ItemDetailsComponent implements OnInit {
         console.log(params)
       }
     )
-
-    this.editorType$ = this.store.pipe(select(recipeSelectors.getEditorType));
-    this.item$ = this.store.pipe(select(recipeSelectors.getSelectedRecipe));
   }
 
 }

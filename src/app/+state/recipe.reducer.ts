@@ -25,6 +25,14 @@ export const recipeReducer = createReducer(
   initialState,
   on(recipeActions.getRecipesSuccess, (state, {recipes}) => ({...state, recipes})),
 
+  // click on Add Recipe button
+  on(recipeActions.addRecipe, (state) => (
+    {
+      ...state,
+      editorType: 'create'
+    }
+  )),
+
   on(recipeActions.createRecipeSuccess, (state, recipe) => ({...state, recipes: [...state.recipes, recipe]})),
 
   on(recipeActions.selectRecipe, (state, recipe) => (
@@ -35,6 +43,7 @@ export const recipeReducer = createReducer(
     }
   )),
 
+  // click on Edit Recipe button
   on(recipeActions.editRecipe, (state, recipe) => (
     {
       ...state,
@@ -61,13 +70,6 @@ export const recipeReducer = createReducer(
     {
       ...state,
       recipes: state.recipes.filter(recipe => recipe.id !== recipeId)
-    }
-  )),
-
-  on(recipeActions.addRecipe, (state) => (
-    {
-      ...state,
-      editorType: 'create'
     }
   ))
 )

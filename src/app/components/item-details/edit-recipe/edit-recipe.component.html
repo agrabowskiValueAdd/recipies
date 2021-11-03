@@ -34,6 +34,8 @@
 
     <button mat-raised-button (click)="openAddIngredientDialog()">Add ingredient</button>
   </div>
-  <button mat-raised-button color="primary" (click)="updateRecipe()" [disabled]="!isFormValid()">Update recipe</button>
-  <button mat-raised-button color="primary">Cancel</button>
+  <div class="editor-buttons">
+    <button mat-raised-button color="primary" (click)="updateRecipe()" [disabled]="!isFormValid()">Update recipe</button>
+    <button mat-raised-button color="primary" (click)="cancelEdit()">Cancel</button>
+  </div>
 </form>

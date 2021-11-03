@@ -45,17 +45,6 @@ export class AddRecipeComponent {
     const newRecipe: Recipe = {...this.newRecipeForm.value, ingredients: this.ingredients};
 
     this.store.dispatch(createRecipe(newRecipe));
-
-    // this.recipeService.createRecipe(newRecipe).subscribe(
-    //   () => {
-    //     this.ingredients = [];
-    //     this.newRecipeForm.reset();
-    //     this.snackBar.open('Recipe created', 'OK', {duration: 3000});
-    //   },
-    //   () => {
-    //     this.snackBar.open('Error while deleting the recipe', 'OK');
-    //   }
-    // )
   }
 
   openAddIngredientDialog() {
