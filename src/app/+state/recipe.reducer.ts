@@ -1,7 +1,6 @@
 import {Recipe} from "../models/Recipe";
 import {createReducer, on} from "@ngrx/store";
 import * as recipeActions from './recipe.actions'
-import {Action} from "rxjs/internal/scheduler/Action";
 
 export interface RecipeState {
   recipes: Recipe[];
@@ -24,10 +23,9 @@ const initialState: RecipeState = {
 
 export const recipeReducer = createReducer(
   initialState,
-  // on(recipeActions.getRecipes, (state) => ({...state})),
   on(recipeActions.getRecipesSuccess, (state, {recipes}) => ({...state, recipes})),
-  // on(recipeActions.createRecipe, (state) => ({...state})),
-  on(recipeActions.createRecipeSuccess, (state, recipe) => ({...state, recipe})),
+
+  on(recipeActions.createRecipeSuccess, (state, recipe) => ({...state, recipes: [...state.recipes, recipe]})),
 
   on(recipeActions.selectRecipe, (state, recipe) => (
     {
@@ -45,12 +43,24 @@ export const recipeReducer = createReducer(
     }
   )),
 
-  on(recipeActions.updateRecipeSuccess, (state, recipe) => ({...state, recipes: [...state.recipes, recipe]})),
+  on(recipeActions.updateRecipeSuccess, (state, updatedRecipe) => (
+    {
+      ...state,
+      recipes: state.recipes.map((r) => {
+        if (r.id === updatedRecipe.id) {
+          return updatedRecipe;
+        }
+        return r;
+      }),
+      selectedRecipe: updatedRecipe,
+      editorType: 'preview'
+    }
+  )),
 
   on(recipeActions.deleteRecipeSuccess, (state, recipeId) => (
     {
       ...state,
-      recipes: state.recipes.filter((recipe) => recipe.id !== recipeId)
+      recipes: state.recipes.filter(recipe => recipe.id !== recipeId)
     }
   )),
 

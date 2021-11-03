@@ -29,6 +29,10 @@
         {
           "name": "pepper",
           "quantity": "10g"
+        },
+        {
+          "name": "more pepper",
+          "quantity": "5g"
         }
       ],
       "type": "[Recipes] Update Recipe"
@@ -74,6 +78,23 @@
           "quantity": "10g"
         }
       ]
+    },
+    {
+      "id": "v-nh7Z_",
+      "name": "test",
+      "description": "123rwerewfdf423",
+      "preparationTimeInMinutes": 10,
+      "ingredients": [
+        {
+          "name": "323",
+          "quantity": "232"
+        },
+        {
+          "name": "545",
+          "quantity": "543543"
+        }
+      ],
+      "type": "[Recipes] Update Recipe"
     }
   ],
   "ingredients": [
