@@ -1,8 +1,8 @@
 <div class="list-actions">
   <mat-form-field class="example-form-field" appearance="fill">
     <mat-label>Search</mat-label>
-    <input matInput type="text" [(ngModel)]="searchValue">
-    <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+    <input matInput type="text" [formControl]="searchControl">
+    <button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchControl.value"  (click)="clearSearchInput()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -11,7 +11,7 @@
 </div>
 
 <mat-list>
-  <mat-list-item *ngFor="let item of list$ | async | searchFilter: searchValue"
+  <mat-list-item *ngFor="let item of list$ | async | searchFilter: searchControl.value"
                  [ngClass]="{'selected-row': selectedItemId === item.id}"
                  class="list-item">
     <div class="list-item">

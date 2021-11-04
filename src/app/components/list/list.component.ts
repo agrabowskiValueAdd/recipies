@@ -10,6 +10,7 @@ import * as fromRecipeActions from "../../+state/recipe.actions";
 import * as fromRecipeSelectors from '../../+state/recipe.selector';
 import {RecipeState} from "../../+state/recipe.reducer";
 import {Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-list',
@@ -21,6 +22,7 @@ export class ListComponent implements OnInit {
   selectedItemId: string;
   searchValue: string;
   list$: Observable<Recipe[]>;
+  searchControl = new FormControl();
 
   constructor(private recipeService: RecipeService, private sharedService: SharedService,
               private snackBar: MatSnackBar, private dialog: MatDialog, private store: Store<RecipeState>) {
@@ -61,6 +63,10 @@ export class ListComponent implements OnInit {
   editRecipe(recipe: Recipe): void {
     this.selectedItemId = recipe.id;
     this.store.dispatch(fromRecipeActions.OpenEditRecipeForm(recipe));
+  }
+
+  clearSearchInput() {
+    this.searchControl.setValue('');
   }
 
 }
