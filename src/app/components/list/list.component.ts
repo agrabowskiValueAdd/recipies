@@ -20,7 +20,6 @@ import {FormControl} from "@angular/forms";
 })
 export class ListComponent implements OnInit {
   selectedItemId: string;
-  searchValue: string;
   list$: Observable<Recipe[]>;
   searchControl = new FormControl();
 

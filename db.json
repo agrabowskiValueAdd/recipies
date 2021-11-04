@@ -2,7 +2,7 @@
   "recipes": [
     {
       "id": "1",
-      "name": "pasta broccoli",
+      "name": "Pasta al Broccoli",
       "description": "meatless Italian pasta with broccoli, olive and cheese",
       "preparationTimeInMinutes": 20,
       "ingredients": [
@@ -39,7 +39,7 @@
     },
     {
       "id": "2",
-      "name": "ragout bolognese",
+      "name": "Ragout Bolognese",
       "description": "most famous Italian pasta from Bologna",
       "preparationTimeInMinutes": 240,
       "ingredients": [
@@ -77,7 +77,8 @@
           "name": "pepper",
           "quantity": "10g"
         }
-      ]
+      ],
+      "type": "[Recipes] Update Recipe"
     },
     {
       "id": "v-nh7Z_",

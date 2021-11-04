@@ -3,6 +3,7 @@
     <mat-form-field appearance="legacy" [style.width.%]="100">
       <mat-label>Name</mat-label>
       <input matInput placeholder="Enter ingredient name" formControlName="name">
+      <mat-error *ngIf="newIngredientForm.hasError('uniqueName')">Name must be unique</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="legacy" [style.width.%]="100">

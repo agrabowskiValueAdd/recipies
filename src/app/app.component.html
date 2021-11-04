@@ -1,8 +1,18 @@
 <app-navbar></app-navbar>
-<div class="content">
-  <app-list class="list"></app-list>
 
-<!--  tutaj router outlet zeby dostawac sie do przepisow po id w URLu -->
-  <app-item-details class="details"></app-item-details>
-</div>
+<mat-drawer-container class="sidenav-container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
+    <app-list class="list"></app-list>
+  </mat-drawer>
+
+  <div class="main-content">
+    <button type="button" mat-button class="toggle-sidenav-button" (click)="drawer.toggle()">
+      {{drawer.opened ? 'Hide list' : 'Show list'}}
+    </button>
+<!--    <router-outlet></router-outlet>-->
+    <app-item-details class="details"></app-item-details>
+  </div>
+</mat-drawer-container>
+
+
 

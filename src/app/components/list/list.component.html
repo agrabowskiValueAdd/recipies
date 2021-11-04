@@ -2,7 +2,7 @@
   <mat-form-field class="example-form-field" appearance="fill">
     <mat-label>Search</mat-label>
     <input matInput type="text" [formControl]="searchControl">
-    <button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchControl.value"  (click)="clearSearchInput()">
+    <button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchControl.value" (click)="clearSearchInput()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -12,8 +12,7 @@
 
 <mat-list>
   <mat-list-item *ngFor="let item of list$ | async | searchFilter: searchControl.value"
-                 [ngClass]="{'selected-row': selectedItemId === item.id}"
-                 class="list-item">
+                 [ngClass]="{'selected-row': selectedItemId === item.id}">
     <div class="list-item">
       <span class="recipe-name" (click)="selectItem(item)">{{item.name}}</span>
       <span>

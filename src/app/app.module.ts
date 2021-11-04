@@ -25,12 +25,13 @@ import { AddIngredientDialogComponent } from "./dialogs/add-ingredient-dialog/ad
 import { EditRecipeComponent } from "./components/item-details/edit-recipe/edit-recipe.component";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import {recipeReducer,} from "./+state/recipe.reducer";
+import {recipeReducer} from "./+state/recipe.reducer";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 import {RecipeEffects} from "./+state/recipe.effects";
 import {RequestInterceptor} from "./request-interceptor";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatButtonModule,
     MatInputModule,
     MatTooltipModule,
+    MatSidenavModule,
     FormsModule,
     ReactiveFormsModule,
     TextFieldModule,

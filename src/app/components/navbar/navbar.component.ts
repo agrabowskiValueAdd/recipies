@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorDialogComponent } from "../../dialogs/author-dialog/author-dialog.component";
 
@@ -8,13 +8,10 @@ import { AuthorDialogComponent } from "../../dialogs/author-dialog/author-dialog
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent{
   appName: string = 'Recipes';
 
   constructor(private dialog: MatDialog) { }
-
-  ngOnInit(): void {
-  }
 
   openDialog() {
     this.dialog.open(AuthorDialogComponent, {

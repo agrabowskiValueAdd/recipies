@@ -1,12 +1,16 @@
-.content {
-  display: flex;
-  justify-content: center;
+.sidenav-container {
+  min-height: 500px;
 
-  .list {
-    flex: 2;
-  }
+  .main-content {
+    padding: 30px;
 
-  .details {
-    flex: 4;
+    .toggle-sidenav-button {
+      margin-bottom: 20px;
+    }
   }
+}
+
+.sidenav {
+  padding: 20px;
+  width: 450px;
 }

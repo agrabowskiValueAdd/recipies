@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { RecipeService } from './recipe.service';
 
-describe('RecipieService', () => {
+describe('RecipeService', () => {
   let service: RecipeService;
 
   beforeEach(() => {
@@ -13,4 +13,5 @@ describe('RecipieService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
 });
