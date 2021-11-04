@@ -6,8 +6,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {DeleteConfirmationDialogComponent} from "../../dialogs/confirmation-dialog/delete-confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {select, Store} from "@ngrx/store";
-import * as recipeActions from "../../+state/recipe.actions";
-import * as recipeSelectors from '../../+state/recipe.selector';
+import * as fromRecipeActions from "../../+state/recipe.actions";
+import * as fromRecipeSelectors from '../../+state/recipe.selector';
 import {RecipeState} from "../../+state/recipe.reducer";
 import {Observable} from "rxjs";
 
@@ -25,20 +25,20 @@ export class ListComponent implements OnInit {
   constructor(private recipeService: RecipeService, private sharedService: SharedService,
               private snackBar: MatSnackBar, private dialog: MatDialog, private store: Store<RecipeState>) {
 
-    this.list$ = this.store.pipe(select(recipeSelectors.getAllRecipes));
+    this.list$ = this.store.pipe(select(fromRecipeSelectors.getAllRecipes));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(recipeActions.getRecipes());
+    this.store.dispatch(fromRecipeActions.GetRecipesCollection());
   }
 
   selectItem(recipe: Recipe): void {
     this.selectedItemId = recipe.id;
-    this.store.dispatch(recipeActions.selectRecipe(recipe));
+    this.store.dispatch(fromRecipeActions.SelectRecipe(recipe));
   }
 
   deleteRecipe(recipeId: string): void {
-    this.store.dispatch(recipeActions.deleteRecipe({recipeId}));
+    this.store.dispatch(fromRecipeActions.RemoveRecipe({recipeId}));
   }
 
   openDeleteConfirmationDialog(recipeId: string): void {
@@ -55,12 +55,12 @@ export class ListComponent implements OnInit {
   }
 
   addRecipeButton(): void {
-    this.store.dispatch(recipeActions.addRecipe());
+    this.store.dispatch(fromRecipeActions.OpenAddRecipeForm());
   }
 
   editRecipe(recipe: Recipe): void {
     this.selectedItemId = recipe.id;
-    this.store.dispatch(recipeActions.editRecipe(recipe));
+    this.store.dispatch(fromRecipeActions.OpenEditRecipeForm(recipe));
   }
 
 }

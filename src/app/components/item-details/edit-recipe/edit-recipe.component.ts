@@ -6,7 +6,7 @@ import {Recipe} from "../../../models/Recipe";
 import {AddIngredientDialogComponent} from "../../../dialogs/add-ingredient-dialog/add-ingredient-dialog.component";
 import {Store} from "@ngrx/store";
 import {RecipeState} from "../../../+state/recipe.reducer";
-import * as recipeActions from '../../../+state/recipe.actions';
+import * as fromRecipeActions from '../../../+state/recipe.actions';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -75,11 +75,11 @@ export class EditRecipeComponent implements OnInit {
       ingredients: this.ingredients
     };
 
-    this.store.dispatch(recipeActions.updateRecipe(updatedRecipe));
+    this.store.dispatch(fromRecipeActions.UpdateRecipe(updatedRecipe));
   }
 
   cancelEdit() {
-    this.store.dispatch(recipeActions.selectRecipe(this.item));
+    this.store.dispatch(fromRecipeActions.SelectRecipe(this.item));
   }
 
 }

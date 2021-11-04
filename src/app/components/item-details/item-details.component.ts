@@ -6,7 +6,7 @@ import {Recipe} from "../../models/Recipe";
 import {ActivatedRoute} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {RecipeState} from "../../+state/recipe.reducer";
-import * as recipeSelectors from '../../+state/recipe.selector';
+import * as fromRecipeSelectors from '../../+state/recipe.selector';
 
 @Component({
   selector: 'app-item-details',
@@ -21,8 +21,8 @@ export class ItemDetailsComponent implements OnInit {
   constructor(private sharedService: SharedService, private recipeService: RecipeService,
               private route: ActivatedRoute, private store: Store<RecipeState>) {
 
-    this.editorType$ = this.store.pipe(select(recipeSelectors.getEditorType));
-    this.item$ = this.store.pipe(select(recipeSelectors.getSelectedRecipe));
+    this.editorType$ = this.store.pipe(select(fromRecipeSelectors.getEditorType));
+    this.item$ = this.store.pipe(select(fromRecipeSelectors.getSelectedRecipe));
   }
 
   ngOnInit(): void {

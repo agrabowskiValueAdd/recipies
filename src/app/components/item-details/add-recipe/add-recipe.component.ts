@@ -7,7 +7,7 @@ import {Recipe} from "../../../models/Recipe";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
-import {createRecipe} from "../../../+state/recipe.actions";
+import * as fromRecipeActions from '../../../+state/recipe.actions'
 
 @Component({
   selector: 'app-add-recipe',
@@ -45,7 +45,7 @@ export class AddRecipeComponent {
   addRecipe() {
     const newRecipe: Recipe = {...this.newRecipeForm.value, ingredients: this.ingredients};
 
-    this.store.dispatch(createRecipe(newRecipe));
+    this.store.dispatch(fromRecipeActions.CreateRecipe(newRecipe));
   }
 
   openAddIngredientDialog() {

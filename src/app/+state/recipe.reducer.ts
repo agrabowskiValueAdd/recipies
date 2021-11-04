@@ -1,6 +1,6 @@
 import {Recipe} from "../models/Recipe";
 import {createReducer, on} from "@ngrx/store";
-import * as recipeActions from './recipe.actions'
+import * as fromRecipeActions from './recipe.actions'
 
 export interface RecipeState {
   recipes: Recipe[];
@@ -23,19 +23,19 @@ const initialState: RecipeState = {
 
 export const recipeReducer = createReducer(
   initialState,
-  on(recipeActions.getRecipesSuccess, (state, {recipes}) => ({...state, recipes})),
+  on(fromRecipeActions.GetRecipesCollectionSuccess, (state, {recipes}) => ({...state, recipes})),
 
   // click on Add Recipe button
-  on(recipeActions.addRecipe, (state) => (
+  on(fromRecipeActions.OpenAddRecipeForm, (state) => (
     {
       ...state,
       editorType: 'create'
     }
   )),
 
-  on(recipeActions.createRecipeSuccess, (state, recipe) => ({...state, recipes: [...state.recipes, recipe]})),
+  on(fromRecipeActions.CreateRecipeSuccess, (state, recipe) => ({...state, recipes: [...state.recipes, recipe]})),
 
-  on(recipeActions.selectRecipe, (state, recipe) => (
+  on(fromRecipeActions.SelectRecipe, (state, recipe) => (
     {
       ...state,
       selectedRecipe: recipe,
@@ -44,7 +44,7 @@ export const recipeReducer = createReducer(
   )),
 
   // click on Edit Recipe button
-  on(recipeActions.editRecipe, (state, recipe) => (
+  on(fromRecipeActions.OpenEditRecipeForm, (state, recipe) => (
     {
       ...state,
       selectedRecipe: recipe,
@@ -52,7 +52,7 @@ export const recipeReducer = createReducer(
     }
   )),
 
-  on(recipeActions.updateRecipeSuccess, (state, updatedRecipe) => (
+  on(fromRecipeActions.UpdateRecipeSuccess, (state, updatedRecipe) => (
     {
       ...state,
       recipes: state.recipes.map((r) => {
@@ -63,7 +63,7 @@ export const recipeReducer = createReducer(
     }
   )),
 
-  on(recipeActions.deleteRecipeSuccess, (state, recipeId) => (
+  on(fromRecipeActions.RemoveRecipeSuccess, (state, recipeId) => (
     {
       ...state,
       recipes: state.recipes.filter(recipe => recipe.id !== recipeId)

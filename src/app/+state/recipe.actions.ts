@@ -2,55 +2,55 @@ import {createAction, props} from "@ngrx/store";
 import {Recipe} from "../models/Recipe";
 
 // load recipes
-export const getRecipes = createAction('[Recipes] Get Recipes');
+export const GetRecipesCollection = createAction('[Recipes] Get Recipes');
 
-export const getRecipesSuccess = createAction(
+export const GetRecipesCollectionSuccess = createAction(
   '[Recipes] Get Recipes Success',
   (recipes: Recipe[]) => ({recipes})
   // props<{recipes: Recipe[]}>()
 );
 
-export const selectRecipe = createAction(
+export const SelectRecipe = createAction(
   '[Recipes] Select Recipe',
   (recipe: Recipe) => recipe
   // props<{recipe: Recipe}>());
 );
 
-export const editRecipe = createAction(
-  '[Recipes] Edit Recipe',
+export const OpenEditRecipeForm = createAction(
+  '[Recipes] Open Edit Recipe Form',
   (recipe: Recipe) => recipe
 );
 
-export const addRecipe = createAction('[Recipes] Add Recipe');
+export const OpenAddRecipeForm = createAction('[Recipes] Open Add Recipe Form');
 
-export const updateRecipe = createAction(
+export const UpdateRecipe = createAction(
   '[Recipes] Update Recipe',
   (recipe: Recipe) => recipe
 );
 
-export const updateRecipeSuccess = createAction(
+export const UpdateRecipeSuccess = createAction(
   '[Recipes] Update Recipe Success',
   (recipe: Recipe) => recipe
 );
 
-export const createRecipe = createAction(
+export const CreateRecipe = createAction(
   '[Recipes] Create Recipe',
   (recipe: Recipe) => recipe
 );
 
-export const createRecipeSuccess = createAction(
+export const CreateRecipeSuccess = createAction(
   '[Recipes] Create Recipe Success',
   (recipe: Recipe) => recipe
 );
 
-export const deleteRecipe = createAction(
-  '[Recipes] Delete Recipe',
+export const RemoveRecipe = createAction(
+  '[Recipes] Remove Recipe',
   // (recipe: Recipe) => recipe
   props<{recipeId: string}>()
 );
 
-export const deleteRecipeSuccess = createAction(
-  '[Recipe] Delete Recipe Success',
+export const RemoveRecipeSuccess = createAction(
+  '[Recipe] Remove Recipe Success',
   // (recipe: Recipe) => recipe
   props<{recipeId: string}>()
 )
