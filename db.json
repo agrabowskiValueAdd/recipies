@@ -81,21 +81,12 @@
       "type": "[Recipes] Update Recipe"
     },
     {
-      "id": "v-nh7Z_",
-      "name": "test3",
-      "description": "123rwerewfdf423",
-      "preparationTimeInMinutes": 74,
-      "ingredients": [
-        {
-          "name": "323",
-          "quantity": "232"
-        },
-        {
-          "name": "545",
-          "quantity": "543543"
-        }
-      ],
-      "type": "[Recipes] Update Recipe"
+      "name": "test23",
+      "description": "543543ggggfggfdge55",
+      "preparationTimeInMinutes": 89,
+      "ingredients": [],
+      "type": "[Recipes] Create Recipe",
+      "id": "nQ8wBiX"
     }
   ],
   "ingredients": [

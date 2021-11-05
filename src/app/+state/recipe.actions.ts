@@ -16,6 +16,16 @@ export const SelectRecipe = createAction(
   // props<{recipe: Recipe}>());
 );
 
+export const GetRecipeById = createAction(
+  '[Recipes] Get Recipe By Id',
+  props<{id: string}>()
+);
+
+export const GetRecipeByIdSuccess = createAction(
+  '[Recipes] Get Recipe By Id Success',
+  (recipe: Recipe) => recipe
+)
+
 export const OpenEditRecipeForm = createAction(
   '[Recipes] Open Edit Recipe Form',
   (recipe: Recipe) => recipe
@@ -50,7 +60,7 @@ export const RemoveRecipe = createAction(
 );
 
 export const RemoveRecipeSuccess = createAction(
-  '[Recipe] Remove Recipe Success',
+  '[Recipes] Remove Recipe Success',
   // (recipe: Recipe) => recipe
   props<{recipeId: string}>()
 )

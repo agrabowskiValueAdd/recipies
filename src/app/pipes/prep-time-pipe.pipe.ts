@@ -7,11 +7,11 @@ export class PrepTimePipePipe implements PipeTransform {
 
   transform(value: number): string {
     const hours = value / 60;
-    const rHours = Math.floor(hours);
-    const minutes = (hours - rHours) * 60;
-    const rMinutes = Math.round(minutes);
+    const roundedHours = Math.floor(hours);
+    const minutes = (hours - roundedHours) * 60;
+    const roundedMinutes = Math.round(minutes);
 
-    return `${rHours > 0 ? rHours + 'h' : ''} ${rMinutes > 0 ? rMinutes + 'm' : ''}`;
+    return `${roundedHours > 0 ? roundedHours + 'h' : ''} ${roundedMinutes > 0 ? roundedMinutes + 'm' : ''}`;
   }
 
 }

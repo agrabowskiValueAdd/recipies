@@ -4,6 +4,10 @@ import {ItemDetailsComponent} from "./components/item-details/item-details.compo
 
 const routes: Routes = [
   {
+    path: '',
+    component: ItemDetailsComponent
+  },
+  {
     path: ':id',
     component: ItemDetailsComponent
   }

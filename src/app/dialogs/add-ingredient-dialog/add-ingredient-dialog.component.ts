@@ -19,7 +19,7 @@ export class AddIngredientDialogComponent {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(80),
-        UniqueNameValidator.createValidator(this.store)
+        // UniqueNameValidator.createValidator(this.store)
       ]),
     quantity: new FormControl('',
       [

@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {RecipeState} from "../../+state/recipe.reducer";
 import * as fromRecipeSelectors from '../../+state/recipe.selector';
+import * as fromRecipeActions from '../../+state/recipe.actions';
 
 @Component({
   selector: 'app-item-details',
@@ -28,7 +29,9 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       params => {
-        console.log(params)
+        console.log(params);
+        const id = params.id;
+        this.store.dispatch(fromRecipeActions.GetRecipeById({id}));
       }
     )
   }

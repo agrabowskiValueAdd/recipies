@@ -38,12 +38,20 @@ export class RecipeEffects {
     ))
   ))
 
-  deleteRecipe$ = createEffect(() => this.action$.pipe(
+  removeRecipe$ = createEffect(() => this.action$.pipe(
     ofType(fromRecipeActions.RemoveRecipe),
     mergeMap(({recipeId}) => this.recipeService.deleteRecipe(recipeId).pipe(
       map(() => fromRecipeActions.RemoveRecipeSuccess({recipeId})),
       catchError(() => EMPTY),
       tap(() => this.snackBar.open('Recipe deleted', 'OK', {duration: 3000}))
+    ))
+  ))
+
+  getRecipeById$ = createEffect(() => this.action$.pipe(
+    ofType(fromRecipeActions.GetRecipeById),
+    mergeMap(({id}) => this.recipeService.getRecipeById(id).pipe(
+      map((recipe: Recipe) => fromRecipeActions.GetRecipeByIdSuccess(recipe)),
+      catchError(() => EMPTY)
     ))
   ))
 }

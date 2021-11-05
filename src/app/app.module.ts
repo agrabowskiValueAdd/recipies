@@ -32,6 +32,7 @@ import {RecipeEffects} from "./+state/recipe.effects";
 import {RequestInterceptor} from "./request-interceptor";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {UniqueNameValidator} from "./util/unique-name-validator";
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     AuthorDialogComponent,
     DeleteConfirmationDialogComponent,
     AddIngredientDialogComponent,
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+    UniqueNameValidator
   ],
   bootstrap: [AppComponent],
 })
