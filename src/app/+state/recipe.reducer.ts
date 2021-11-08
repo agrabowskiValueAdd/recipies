@@ -72,7 +72,7 @@ export const recipeReducer = createReducer(
     {
       ...state,
       recipes: state.recipes.filter(recipe => recipe.id !== recipeId),
-      // editorType: 'default'
+      editorType: 'default'
     }
   )),
 
