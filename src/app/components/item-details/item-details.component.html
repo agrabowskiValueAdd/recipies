@@ -20,4 +20,8 @@
   </app-edit-recipe>
 <!--  ============ EDIT/CREATE ============  -->
 
+  <div *ngIf="(editorType$ | async) === 'default'" class="default-view">
+    <p>Select a recipe</p>
+  </div>
+
 </ng-container>

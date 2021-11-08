@@ -79,14 +79,6 @@
         }
       ],
       "type": "[Recipes] Update Recipe"
-    },
-    {
-      "name": "test23",
-      "description": "543543ggggfggfdge55",
-      "preparationTimeInMinutes": 89,
-      "ingredients": [],
-      "type": "[Recipes] Create Recipe",
-      "id": "nQ8wBiX"
     }
   ],
   "ingredients": [

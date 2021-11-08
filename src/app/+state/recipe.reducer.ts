@@ -17,7 +17,7 @@ const initialState: RecipeState = {
     description: '',
     preparationTimeInMinutes: 0
   },
-  editorType: ''
+  editorType: 'default'
 }
 
 export const recipeReducer = createReducer(
@@ -68,11 +68,11 @@ export const recipeReducer = createReducer(
     }
   )),
 
-  // TO FIX, stan sie nie zmienia
-  on(fromRecipeActions.RemoveRecipeSuccess, (state, recipeId) => (
+  on(fromRecipeActions.RemoveRecipeSuccess, (state, {recipeId}) => (
     {
       ...state,
-      recipes: state.recipes.filter(recipe => recipe.id !== recipeId)
+      recipes: state.recipes.filter(recipe => recipe.id !== recipeId),
+      // editorType: 'default'
     }
   )),
 
