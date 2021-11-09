@@ -5,9 +5,13 @@ import {Recipe} from "../models/Recipe";
 export const GetRecipesCollection = createAction('[Recipes] Get Recipes');
 
 export const GetRecipesCollectionSuccess = createAction(
-  '[Recipes] Get Recipes Success',
+  '[Recipes] Get Recipes Collection Success',
   (recipes: Recipe[]) => ({recipes})
   // props<{recipes: Recipe[]}>()
+);
+
+export const GetRecipesCollectionError = createAction(
+  '[Recipes] Get Recipes Collection Error'
 );
 
 export const SelectRecipe = createAction(
@@ -24,7 +28,11 @@ export const GetRecipeById = createAction(
 export const GetRecipeByIdSuccess = createAction(
   '[Recipes] Get Recipe By Id Success',
   (recipe: Recipe) => recipe
-)
+);
+
+export const GetRecipeByIdError = createAction(
+  '[Recipes] Get Recipe By Id Error'
+);
 
 export const OpenEditRecipeForm = createAction(
   '[Recipes] Open Edit Recipe Form',
@@ -43,6 +51,10 @@ export const UpdateRecipeSuccess = createAction(
   (recipe: Recipe) => recipe
 );
 
+export const UpdateRecipeError = createAction(
+  '[Recipes] Update Recipe Error'
+);
+
 export const CreateRecipe = createAction(
   '[Recipes] Create Recipe',
   (recipe: Recipe) => recipe
@@ -51,6 +63,10 @@ export const CreateRecipe = createAction(
 export const CreateRecipeSuccess = createAction(
   '[Recipes] Create Recipe Success',
   (recipe: Recipe) => recipe
+);
+
+export const CreateRecipeError = createAction(
+  '[Recipes] Create Recipe Error'
 );
 
 export const RemoveRecipe = createAction(
@@ -63,4 +79,8 @@ export const RemoveRecipeSuccess = createAction(
   '[Recipes] Remove Recipe Success',
   // (recipe: Recipe) => recipe
   props<{recipeId: string}>()
-)
+);
+
+export const RemoveRecipeError = createAction(
+  '[Recipes] Remove Recipe Error'
+);

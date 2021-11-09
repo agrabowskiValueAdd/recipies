@@ -30,8 +30,10 @@ export class ItemDetailsComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         console.log(params);
-        const id = params.id;
-        this.store.dispatch(fromRecipeActions.GetRecipeById({id}));
+        if (params.id) {
+          const id = params.id;
+          this.store.dispatch(fromRecipeActions.GetRecipeById({id}));
+        }
       }
     )
   }

@@ -5,7 +5,7 @@ import * as fromRecipeActions from './recipe.actions'
 import {catchError, concatMap, exhaustMap, map, mergeMap, tap} from "rxjs/operators";
 import {Recipe} from "../models/Recipe";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {EMPTY} from "rxjs";
+import {EMPTY, from, of} from "rxjs";
 
 @Injectable()
 export class RecipeEffects {
@@ -15,7 +15,7 @@ export class RecipeEffects {
       ofType(fromRecipeActions.GetRecipesCollection),
       exhaustMap(() => this.recipeService.getRecipes().pipe(
         map((recipes: Recipe[]) => fromRecipeActions.GetRecipesCollectionSuccess(recipes)),
-        catchError(() => EMPTY)
+        catchError(() => of(fromRecipeActions.GetRecipesCollectionError()))
       ))
     )
   );
@@ -24,7 +24,7 @@ export class RecipeEffects {
     ofType(fromRecipeActions.CreateRecipe),
     concatMap((newRecipe: Recipe) => this.recipeService.createRecipe(newRecipe).pipe(
       map((recipe: Recipe) => fromRecipeActions.CreateRecipeSuccess(recipe)),
-      catchError(() => EMPTY),
+      catchError(() => of(fromRecipeActions.CreateRecipeError())),
       tap(() => this.snackBar.open('Recipe added', 'OK', {duration: 3000}))
     ))
   ));
@@ -33,7 +33,7 @@ export class RecipeEffects {
     ofType(fromRecipeActions.UpdateRecipe),
     concatMap((updatedRecipe: Recipe) => this.recipeService.updateRecipe(updatedRecipe).pipe(
       map((recipe: Recipe) => fromRecipeActions.UpdateRecipeSuccess(recipe)),
-      catchError(() => EMPTY),
+      catchError(() => of(fromRecipeActions.UpdateRecipeError())),
       tap(() => this.snackBar.open('Recipe updated', 'OK', {duration: 3000}))
     ))
   ))
@@ -42,7 +42,7 @@ export class RecipeEffects {
     ofType(fromRecipeActions.RemoveRecipe),
     mergeMap(({recipeId}) => this.recipeService.deleteRecipe(recipeId).pipe(
       map(() => fromRecipeActions.RemoveRecipeSuccess({recipeId})),
-      catchError(() => EMPTY),
+      catchError(() => of(fromRecipeActions.RemoveRecipeError())),
       tap(() => this.snackBar.open('Recipe deleted', 'OK', {duration: 3000}))
     ))
   ))
@@ -51,7 +51,7 @@ export class RecipeEffects {
     ofType(fromRecipeActions.GetRecipeById),
     mergeMap(({id}) => this.recipeService.getRecipeById(id).pipe(
       map((recipe: Recipe) => fromRecipeActions.GetRecipeByIdSuccess(recipe)),
-      catchError(() => EMPTY)
+      catchError(() => of(fromRecipeActions.GetRecipeByIdError()))
     ))
   ))
 }
